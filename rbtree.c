@@ -128,8 +128,10 @@ rbtree_modify(VALUE self)
         rb_raise(rb_eTypeError, "can't modify rbtree in iteration");
     if (OBJ_FROZEN(self))
         rb_error_frozen("rbtree");
+#if defined TAINTING_SUPPORT
     if (!OBJ_TAINTED(self) && rb_safe_level() >= 4)
         rb_raise(rb_eSecurityError, "Insecure: can't modify rbtree");
+#endif
 }
 
 static VALUE

@@ -9,5 +9,10 @@ else
   $defs << '-DNDEBUG'
 end
 
+if RUBY_VERSION < '2.7'
+  $CFLAGS << ' -DTAINTING_SUPPORT'
+end
+
+
 have_func('rb_exec_recursive', 'ruby.h')
 create_makefile('rbtree')
